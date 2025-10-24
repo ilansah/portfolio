@@ -3,11 +3,30 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// If env vars are missing, don't throw — create a lightweight stub so the app
+// can run in development without Supabase configured. This prevents a hard
+// crash (white page) while still making it obvious in the console that
+// Supabase isn't configured.
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+  console.warn('[supabase] VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY is missing. Supabase calls will return empty results.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Minimal stub implementing the chain used in the app:
+// supabase.from(...).select(...).eq(...).order(...)
+const _stub = {
+  from: () => ({
+    select: () => ({
+      eq: () => ({
+        order: async () => ({ data: [], error: null }),
+      }),
+      order: async () => ({ data: [], error: null }),
+    }),
+  }),
+} as const;
+
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : (_stub as unknown as ReturnType<typeof createClient>);
 
 export interface Project {
   id: string;
