@@ -1,23 +1,53 @@
-import { useState } from 'react';
-import { Send, Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Send, Mail, MapPin, CheckCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     service: '',
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Initialiser EmailJS au montage du composant
+  useEffect(() => {
+    emailjs.init('DHc-e069x2uEqLyL0'); // À remplacer par votre clé publique EmailJS
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-    }, 3000);
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // Envoyer l'email via EmailJS
+      await emailjs.send(
+        'service_ak6nrr4', // À remplacer
+        'template_yvopk17', // À remplacer
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          service: formData.service,
+          message: formData.message,
+          to_email: 'support@izrf.fr',
+        }
+      );
+
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', service: '', message: '' });
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (err) {
+      setError('Erreur lors de l\'envoi du message. Veuillez réessayer.');
+      console.error('Erreur EmailJS:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -25,13 +55,20 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <section id="contact" className="py-24 bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 relative overflow-hidden">
+        {/* Texture de fond */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full -mr-48 -mt-48 animate-float-slow"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full -ml-48 mb-48 animate-float-slow" style={{ animationDelay: '3s' }}></div>
+        </div>
+        
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
             Contactez-nous
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-blue-100 max-w-2xl mx-auto">
             Prêt à démarrer votre projet? Parlez-nous de vos besoins et obtenez une consultation gratuite.
           </p>
         </div>
@@ -39,18 +76,18 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             {isSubmitted ? (
-              <div className="bg-green-50 border-2 border-green-500 rounded-2xl p-12 text-center">
-                <CheckCircle size={64} className="text-green-500 mx-auto mb-6" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Message envoyé avec succès!</h3>
-                <p className="text-gray-600">
+              <div className="bg-green-500/20 border-2 border-green-400 rounded-2xl p-12 text-center backdrop-blur-sm">
+                <CheckCircle size={64} className="text-green-300 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-white mb-4">Message envoyé avec succès!</h3>
+                <p className="text-green-100">
                   Merci pour votre message. Notre équipe vous répondra dans les plus brefs délais.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-gray-50 rounded-2xl p-8">
+              <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-semibold text-gray-800 mb-2">
                       Nom complet *
                     </label>
                     <input
@@ -60,12 +97,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 border-2 border-blue-300 rounded-lg focus:border-blue-600 focus:outline-none transition-colors bg-white hover:border-blue-400"
                       placeholder="Jean Dupont"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-800 mb-2">
                       Email *
                     </label>
                     <input
@@ -75,29 +112,16 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 border-2 border-blue-300 rounded-lg focus:border-blue-600 focus:outline-none transition-colors bg-white hover:border-blue-400"
                       placeholder="jean@exemple.fr"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  {/* Phone removed — no phone contact provided */}
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Téléphone
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
-                      placeholder="+33 6 12 34 56 78"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label htmlFor="service" className="block text-sm font-semibold text-gray-800 mb-2">
                       Service souhaité *
                     </label>
                     <select
@@ -106,11 +130,11 @@ export default function Contact() {
                       value={formData.service}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors bg-white"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors bg-white"
                     >
                       <option value="">Sélectionnez un service</option>
                       <option value="web">Création de site web</option>
-                      <option value="ia">Solution IA</option>
+                      {/* IA option removed */}
                       <option value="maintenance">Maintenance</option>
                       <option value="seo">SEO</option>
                       <option value="other">Autre</option>
@@ -129,87 +153,55 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors resize-none"
+                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors resize-none bg-white"
                     placeholder="Décrivez votre projet..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white font-semibold py-4 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center justify-center group"
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-4 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all inline-flex items-center justify-center group shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>Envoyer le message</span>
+                  <span>{isLoading ? 'Envoi en cours...' : 'Envoyer le message'}</span>
                   <Send size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
+                {error && <p className="text-red-200 text-sm mt-2">{error}</p>}
               </form>
             )}
           </div>
 
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Informations de contact</h3>
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
+              <h3 className="text-2xl font-bold text-black mb-6">Informations de contact</h3>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <Mail size={24} className="mr-4 flex-shrink-0 mt-1" />
+                  <Mail size={24} className="mr-4 flex-shrink-0 mt-1 text-black/70" />
                   <div>
-                    <div className="font-semibold mb-1">Email</div>
-                    <a href="mailto:contact@digitalagency.fr" className="text-blue-100 hover:text-white transition-colors">
-                      contact@digitalagency.fr
+                    <div className="font-semibold mb-1 text-black">Email</div>
+                    <a href="mailto:support@izrf.fr" className="text-black hover:text-blue-600 transition-colors font-medium">
+                      support@izrf.fr
                     </a>
                   </div>
                 </div>
+                {/* Phone removed from contact card */}
                 <div className="flex items-start">
-                  <Phone size={24} className="mr-4 flex-shrink-0 mt-1" />
+                  <MapPin size={24} className="mr-4 flex-shrink-0 mt-1 text-black/70" />
                   <div>
-                    <div className="font-semibold mb-1">Téléphone</div>
-                    <a href="tel:+33123456789" className="text-blue-100 hover:text-white transition-colors">
-                      +33 1 23 45 67 89
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <MapPin size={24} className="mr-4 flex-shrink-0 mt-1" />
-                  <div>
-                    <div className="font-semibold mb-1">Adresse</div>
-                    <p className="text-blue-100">
-                      123 Avenue des Champs-Élysées<br />
-                      75008 Paris, France
+                    <div className="font-semibold mb-1 text-black">Adresse</div>
+                    <p className="text-black font-medium">
+                      Lille, France
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-orange-50 border-2 border-orange-200 rounded-2xl p-8">
-              <h4 className="font-bold text-gray-900 mb-3">Consultation gratuite</h4>
-              <p className="text-gray-600 text-sm mb-4">
-                Bénéficiez d'un premier rendez-vous gratuit de 30 minutes pour discuter de votre projet.
-              </p>
-              <button className="w-full bg-orange-500 text-white font-semibold py-3 rounded-lg hover:bg-orange-600 transition-colors">
-                Réserver un créneau
-              </button>
-            </div>
-
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h4 className="font-bold text-gray-900 mb-3">Horaires d'ouverture</h4>
-              <div className="space-y-2 text-sm text-gray-600">
-                <div className="flex justify-between">
-                  <span>Lundi - Vendredi</span>
-                  <span className="font-semibold text-gray-900">9h - 18h</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Samedi</span>
-                  <span className="font-semibold text-gray-900">10h - 14h</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Dimanche</span>
-                  <span className="font-semibold text-gray-900">Fermé</span>
-                </div>
-              </div>
-            </div>
+            {/* Opening hours removed — no schedule provided */}
           </div>
         </div>
       </div>
     </section>
+    </>
   );
 }

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Calendar } from 'lucide-react';
-import { supabase, Project, ProjectImage } from '../lib/supabase';
+import type { Project, ProjectImage } from '../lib/supabase';
 import ImageGallery from '../components/ImageGallery';
+import { mockProjects } from '../data/mockProjects';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -12,46 +13,15 @@ export default function ProjectDetail() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProject = async () => {
-      if (!slug) return;
+    // Use local mock projects to render details without Supabase.
+    if (!slug) return;
+    setLoading(true);
 
-      setLoading(true);
-
-      const { data: projectData, error: projectError } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('slug', slug)
-        .maybeSingle();
-
-      if (projectError) {
-        console.error('Error fetching project:', projectError);
-        setLoading(false);
-        return;
-      }
-
-      if (!projectData) {
-        setLoading(false);
-        return;
-      }
-
-      setProject(projectData);
-
-      const { data: imagesData, error: imagesError } = await supabase
-        .from('project_images')
-        .select('*')
-        .eq('project_id', projectData.id)
-        .order('display_order', { ascending: true });
-
-      if (imagesError) {
-        console.error('Error fetching images:', imagesError);
-      } else {
-        setImages(imagesData || []);
-      }
-
-      setLoading(false);
-    };
-
-    fetchProject();
+    const found = mockProjects.find((p) => p.slug === slug) || null;
+    setProject(found);
+    // No separate images in the mock; keep empty array for ImageGallery.
+    setImages([]);
+    setLoading(false);
   }, [slug]);
 
   if (loading) {

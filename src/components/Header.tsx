@@ -13,7 +13,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+  <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -21,7 +21,7 @@ export default function Header() {
               onClick={() => scrollToSection('home')}
               className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
             >
-              Digital<span className="text-blue-600">Agency</span>
+              irzf<span className="text-blue-600">.</span>
             </button>
           </div>
 
@@ -43,7 +43,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all font-medium shadow-sm"
             >
               Contact
             </button>
