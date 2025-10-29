@@ -2,35 +2,19 @@ import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Sophie Martin',
-    company: 'Boutique Élégance',
-    role: 'Fondatrice',
-    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=300',
-    content: 'L\'équipe a su transformer notre vision en un site e-commerce magnifique et performant. Nos ventes ont augmenté de 150% en 6 mois!',
+    name: 'Wrona Thomas',
+    company: 'Tomilan Trek',
+    role: 'Fondateur',
+    image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300',
+    content: 'L\'équipe a créé une plateforme de randonnée magnifique qui facilite le partage d\'itinéraires et les conseils entre randonneurs. La qualité du travail est exceptionnelle!',
     rating: 5,
   },
   {
-    name: 'Thomas Dubois',
-    company: 'Restaurant Le Gourmet',
-    role: 'Directeur',
-    image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300',
-    content: 'Un accompagnement professionnel du début à la fin. Le site est exactement ce que nous voulions, et le système de réservation fonctionne parfaitement.',
-    rating: 5,
-  },
-  {
-    name: 'Marie Leclerc',
-    company: 'Cabinet Juridique ML',
-    role: 'Avocate',
-    image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=300',
-    content: 'Excellent travail sur notre site professionnel. L\'équipe a compris nos besoins spécifiques et a livré un résultat qui dépasse nos attentes.',
-    rating: 5,
-  },
-  {
-    name: 'Alexandre Bernard',
-    company: 'Tech Solutions Pro',
-    role: 'CEO',
-    image: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=300',
-    content: 'Service de maintenance impeccable. Nous sommes rassurés de savoir que notre plateforme est entre de bonnes mains. Réponse rapide et efficace.',
+    name: 'Anonyme',
+    company: 'Client',
+    role: 'Propriétaire',
+    image: undefined,
+    content: 'Excellent travail sur notre site web. Notre présence en ligne s\'est améliorée considérablement et nous recevons plus de clients grâce à ce projet.',
     rating: 5,
   },
 ];
@@ -77,11 +61,17 @@ export default function Testimonials() {
                 </p>
 
                 <div className="flex items-center pt-4 border-t border-gray-100">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-3 ring-2 ring-blue-100 group-hover:ring-blue-300 transition-all"
-                  />
+                  {testimonial.image ? (
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover mr-3 ring-2 ring-blue-100 group-hover:ring-blue-300 transition-all"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mr-3 ring-2 ring-blue-100 group-hover:ring-blue-300 transition-all">
+                      <span className="text-white font-bold text-sm">{testimonial.name.charAt(0)}</span>
+                    </div>
+                  )}
                   <div>
                     <div className="font-semibold text-gray-900 text-sm">{testimonial.name}</div>
                     <div className="text-xs text-gray-500">

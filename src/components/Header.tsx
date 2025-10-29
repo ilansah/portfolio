@@ -21,7 +21,7 @@ export default function Header() {
               onClick={() => scrollToSection('home')}
               className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
             >
-              irzf<span className="text-blue-600">.</span>
+              izrf<span className="text-blue-600">.</span>
             </button>
           </div>
 

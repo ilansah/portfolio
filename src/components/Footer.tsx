@@ -8,8 +8,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-white text-xl font-bold mb-4">irzf</h3>
-            <p className="text-gray-400 mb-4">Nouvelle entreprise spécialisée en création de sites web et maintenance.</p>
+            <h3 className="text-white text-xl font-bold mb-4">izrf</h3>
+            <p className="text-gray-400 mb-4">Agence web innovante spécialisée en création de sites modernes, SEO et maintenance.</p>
           </div>
 
           <div>
@@ -68,7 +68,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {currentYear} irzf. Tous droits réservés.</p>
+          <p>&copy; {currentYear} izrf. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

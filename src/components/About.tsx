@@ -35,40 +35,40 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-900 mb-6">
-              À propos d'irzf
+              À propos d'izrf
             </h2>
             <p className="text-lg text-blue-700 mb-6 leading-relaxed">
-              irzf est une jeune entreprise basée à Lille. Nous aidons nos premiers clients à créer leur présence en ligne avec des sites simples et performants.
+              izrf est une agence web de confiance basée à Lille. Nous aidons les entreprises à créer leur présence en ligne avec des solutions web performantes, modernes et adaptées à leurs besoins.
             </p>
             <p className="text-lg text-blue-700 mb-6 leading-relaxed">
-              En tant que nouvelle structure, nous avons peu de projets réalisés pour l'instant, mais nous mettons l'accent sur la qualité et l'accompagnement personnalisé.
+              En tant que partenaire digital, nous transformons vos idées en sites web exceptionnels qui génèrent des résultats. Notre approche combine expertise technique et stratégie business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex items-center space-x-3 bg-white p-3 rounded-lg border-l-4 border-blue-600 shadow-sm">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-xl">1</span>
+                  <span className="text-white font-bold text-xl">✨</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Années</div>
-                  <div className="text-sm text-gray-600">d'activité</div>
+                  <div className="font-semibold text-gray-900">Qualité</div>
+                  <div className="text-sm text-gray-600">premium</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3 bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-400 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-xl">2</span>
+                  <span className="text-white font-bold text-xl">⚡</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Projets</div>
-                  <div className="text-sm text-gray-600">réalisés</div>
+                  <div className="font-semibold text-gray-900">Performance</div>
+                  <div className="text-sm text-gray-600">optimale</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3 bg-white p-3 rounded-lg border-l-4 border-blue-400 shadow-sm">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-300 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-blue-900 font-bold text-xl">N/A</span>
+                  <span className="text-blue-900 font-bold text-xl">🎯</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-blue-900">Satisfaction</div>
-                  <div className="text-sm text-blue-700">clients</div>
+                  <div className="font-semibold text-blue-900">Expertise</div>
+                  <div className="text-sm text-blue-700">reconnue</div>
                 </div>
               </div>
             </div>
@@ -77,12 +77,12 @@ export default function About() {
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="h-40 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl"></div>
-                <div className="h-56 bg-gradient-to-br from-blue-300 to-blue-500 rounded-2xl"></div>
+                <img src="https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Developer web" className="h-40 rounded-2xl object-cover shadow-lg" />
+                <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Code programming" className="h-56 rounded-2xl object-cover shadow-lg" />
               </div>
               <div className="space-y-4 pt-8">
-                <div className="h-56 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl"></div>
-                <div className="h-40 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl"></div>
+                <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Coding on laptop" className="h-56 rounded-2xl object-cover shadow-lg" />
+                <img src="https://images.pexels.com/photos/669996/pexels-photo-669996.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Web developer" className="h-40 rounded-2xl object-cover shadow-lg" />
               </div>
             </div>
           </div>

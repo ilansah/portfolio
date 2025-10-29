@@ -31,7 +31,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              IRZF est une jeune entreprise spécialisée dans la création de sites web, le référencement (SEO) et la maintenance. Nous développons activement notre portefeuille de projets tout en consolidant notre expertise.
+              izrf est une agence web innovante spécialisée dans la création de sites web modernes, l'optimisation SEO et la maintenance. Nous accompagnons les entreprises dans leur transformation digitale avec expertise et passion.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -52,18 +52,18 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-8 pt-4">
               <div>
-                <div className="text-2xl font-bold text-blue-700">Jeune</div>
-                <div className="text-sm text-blue-600">Nouvelle entreprise</div>
+                <div className="text-2xl font-bold text-blue-700">100%</div>
+                <div className="text-sm text-blue-600">Satisfaits</div>
               </div>
               <div className="h-12 w-px bg-blue-200 hidden sm:block"></div>
               <div>
-                <div className="text-2xl font-bold text-blue-700">Peu</div>
-                <div className="text-sm text-blue-600">Projets réalisés</div>
+                <div className="text-2xl font-bold text-blue-700">24/7</div>
+                <div className="text-sm text-blue-600">Support client</div>
               </div>
               <div className="h-12 w-px bg-blue-200 hidden sm:block"></div>
               <div>
-                <div className="text-2xl font-bold text-blue-700">Lille</div>
-                <div className="text-sm text-blue-600">Basée à Lille</div>
+                <div className="text-2xl font-bold text-blue-700">100%</div>
+                <div className="text-sm text-blue-600">Custom & Moderne</div>
               </div>
             </div>
           </div>
